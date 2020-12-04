@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 
 public class Test {
     public static void main(String[] args) {
-        printWeekData("161723");
+        printWeekData("003096",5);
     }
 
 
-    private static void printWeekData(String code) {
+    private static void printWeekData(String code,long days) {
         Map<Integer, String> map = Maps.newHashMap();
         map.put(1, "一");
         map.put(2, "二");
@@ -27,8 +27,8 @@ public class Test {
         map.put(6, "六");
         map.put(7, "日");
         LocalDate now = LocalDate.now();
-        LocalDate start = now.minusYears(1);
-        List<Data> dataList = listData(code, 1, 365, DateUtil.toString(start), DateUtil.toString(now));
+        LocalDate start = now.minusDays(days);
+        List<Data> dataList = listData(code, 1, (int) days, DateUtil.toString(start), DateUtil.toString(now));
         Map<Integer, BigDecimal> group = dataList.stream()
                 .collect(Collectors.toMap(data -> {
                     LocalDate date = data.getDate();
